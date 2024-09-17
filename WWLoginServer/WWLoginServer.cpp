@@ -70,10 +70,10 @@ void WWLoginServer::OnRecv(SessionInfo sessionInfo,int roomID, CRecvBuffer& buf)
 Array<char, 64> WWLoginServer::MakeLoginToken()
 {
 	Array<char,64> loginToken;
-	uint64_t randomValue;
+	uint64_t randomValue=GetTickCount64();
 	size_t i = 0;
 	while (i < loginToken.size()) {
-		randomValue = _dis(_rnGenerator);
+		randomValue ^= _dis(_rnGenerator);
 		std::memcpy(&loginToken[i], &randomValue, sizeof(randomValue));
 		i += sizeof(randomValue);
 	}
