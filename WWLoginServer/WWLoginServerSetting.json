@@ -1,0 +1,25 @@
+{
+	"IOCP_THREAD_NUM": 1,
+	"CONCURRENT_THREAD_NUM": 1,
+
+	"BIND_IP": "0.0.0.0",
+
+	"BIND_PORT": 2000,
+
+	"SESSION_MAX": 10000,
+
+	"PACKET_CODE": 119,
+	"PACKET_KEY": 50,
+	"LOG_LEVEL": 0,
+
+	"DB_PASSWORD": "1234",
+	"DB_SCHEMA": "accountdb",
+
+	"DB_IP": "127.0.0.1",
+	"DB_USER": "root",
+
+	"REDIS_IP":  "127.0.0.1",
+
+	"GameServerIp": "127.0.0.1",
+	"GameServerPort": 6000
+}

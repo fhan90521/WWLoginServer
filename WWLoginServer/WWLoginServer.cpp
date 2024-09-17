@@ -106,9 +106,9 @@ WWLoginServer::~WWLoginServer()
 	delete _dbWorkThreadPool;
 }
 
-WWLoginServer::WWLoginServer() : WWLoginServerProxy(this), IOCPServer("LoginServerSetting.json"),
-_accountDB("LoginServerSetting.json"),
-_loginTokenRedis("LoginServerSetting.json")
+WWLoginServer::WWLoginServer() : WWLoginServerProxy(this), IOCPServer("WWLoginServerSetting.json"),
+_accountDB("WWLoginServerSetting.json"),
+_loginTokenRedis("WWLoginServerSetting.json")
 {
 	Document serverSetValues = ParseJson("LoginServerSetting.json");
 	std::string gameServerIp = serverSetValues["GameServerIp"].GetString();
