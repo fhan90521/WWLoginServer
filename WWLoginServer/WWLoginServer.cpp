@@ -69,7 +69,15 @@ void WWLoginServer::OnRecv(SessionInfo sessionInfo,int roomID, CRecvBuffer& buf)
 
 Array<char, 64> WWLoginServer::MakeLoginToken()
 {
-	return Array<char, 64>();
+	Array<char,64> loginToken;
+	uint64_t randomValue;
+	size_t i = 0;
+	while (i < loginToken.size()) {
+		randomValue = _dis(_rnGenerator);
+		std::memcpy(&loginToken[i], &randomValue, sizeof(randomValue));
+		i += sizeof(randomValue);
+	}
+	return loginToken;
 }
 
 void WWLoginServer::Run()
@@ -108,7 +116,8 @@ WWLoginServer::~WWLoginServer()
 
 WWLoginServer::WWLoginServer() : WWLoginServerProxy(this), IOCPServer("WWLoginServerSetting.json"),
 _accountDB("WWLoginServerSetting.json"),
-_loginTokenRedis("WWLoginServerSetting.json")
+_loginTokenRedis("WWLoginServerSetting.json"),
+_rnGenerator(_rd())
 {
 	Document serverSetValues = ParseJson("LoginServerSetting.json");
 	std::string gameServerIp = serverSetValues["GameServerIp"].GetString();

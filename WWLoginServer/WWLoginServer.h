@@ -7,7 +7,7 @@
 #include "DBHelper/RedisHelper.h"
 #include <atomic>
 #include <thread>
-
+#include <random>
 #include "WWLoginServerStub.h"
 #include "WWLoginServerProxy.h"
 class WWLoginServer: public IOCPServer, public  WWLoginServerProxy, private WWLoginServerStub
@@ -19,6 +19,10 @@ private:
 	USHORT _gameServerPort;
 	LONG64 _onConnectCnt = 0;
 	LONG _procLoginReqCnt = 0;
+	std::random_device _rd;
+	std::mt19937 _rnGenerator;
+	std::uniform_int_distribution<uint64_t> _dis;
+
 	LONG GetProcLoginReqCnt();
 public:
 	const Array<WCHAR, 16>& GetGameServerIp();
