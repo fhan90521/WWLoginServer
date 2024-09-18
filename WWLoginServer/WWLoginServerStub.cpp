@@ -2,8 +2,8 @@
 #include "DebugTool/Log.h"
 bool WWLoginServerStub::PacketProcReqLogin(SessionInfo sessionInfo, int roomID, CRecvBuffer& buf)
 {
-	Array<WCHAR,20> id;
-	Array<WCHAR,20> password;
+	WString id;
+	WString password;
 	try
 	{
 		buf >> id >> password;
@@ -22,7 +22,7 @@ bool WWLoginServerStub::PacketProcResLogin(SessionInfo sessionInfo, int roomID, 
 	char status;
 	INT64 accountNo;
 	std::string loginToken;
-	Array<WCHAR,16> gameServerIp;
+	WString gameServerIp;
 	USHORT gameServerPort;
 	try
 	{
@@ -39,8 +39,8 @@ bool WWLoginServerStub::PacketProcResLogin(SessionInfo sessionInfo, int roomID, 
 
 bool WWLoginServerStub::PacketProcSignUp(SessionInfo sessionInfo, int roomID, CRecvBuffer& buf)
 {
-	Array<WCHAR,20> id;
-	Array<WCHAR,20> password;
+	WString id;
+	WString password;
 	try
 	{
 		buf >> id >> password;

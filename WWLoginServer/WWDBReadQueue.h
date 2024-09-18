@@ -7,6 +7,6 @@ public:
 	class WWLoginServer* _wwLoginServer=nullptr;
 	class MYSQLHelper& _accountDB;
 	class RedisHelper& _loginTokenRedis;
-	void ProcReqLogin(SessionInfo sessionInfo, Array<WCHAR, 20>& id, Array<WCHAR, 20>& password);
+	void ProcReqLogin(SessionInfo sessionInfo, WString& id, WString& password);
 	WWDBReadQueue(class WWLoginServer* loginServer, HANDLE hCompletionPort, MYSQLHelper& accountDB, RedisHelper& loginTokenRedis);
 };

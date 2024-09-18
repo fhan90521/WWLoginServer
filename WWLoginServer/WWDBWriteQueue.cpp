@@ -1,8 +1,11 @@
 #include "WWDBWriteQueue.h"
-
-void WWDBWriteQueue::SignUp(SessionInfo sessionInfo, Array<WCHAR, 20>& id, Array<WCHAR, 20>& password)
+#include "libsodium/include/sodium.h"
+#include "Encrypt/Encrptor.h"
+void WWDBWriteQueue::SignUp(SessionInfo sessionInfo, WString& id, WString& password)
 {
+	
 	//DB¾²±â
+
 }
 
 WWDBWriteQueue::WWDBWriteQueue(WWLoginServer* loginServer, HANDLE hCompletionPort, MYSQLHelper& accountDB):

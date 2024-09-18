@@ -7,25 +7,21 @@
 #include "DBHelper/RedisHelper.h"
 #include <atomic>
 #include <thread>
-#include <random>
 #include "WWLoginServerStub.h"
 #include "WWLoginServerProxy.h"
+#include "Encrpt.h"
 class WWLoginServer: public IOCPServer, public  WWLoginServerProxy, private WWLoginServerStub
 {
 private:
 	MYSQLHelper _accountDB;
 	RedisHelper _loginTokenRedis;
-	Array<WCHAR, 16> _gameServerIp;
+	WString _gameServerIp;
 	USHORT _gameServerPort;
 	LONG64 _onConnectCnt = 0;
 	LONG _procLoginReqCnt = 0;
-	std::random_device _rd;
-	std::mt19937 _rnGenerator;
-	std::uniform_int_distribution<uint64_t> _dis;
-
 	LONG GetProcLoginReqCnt();
 public:
-	const Array<WCHAR, 16>& GetGameServerIp();
+	const WString& GetGameServerIp();
 	USHORT GetGameServerPort();
 	void IncrementLoginReqCnt();
 private:
@@ -48,8 +44,8 @@ private:
 	virtual void OnDisconnect(SessionInfo sessionInfo) override;
 	virtual void OnRecv(SessionInfo sessionInfo,int roomID ,CRecvBuffer& buf) override;
 private:
-	virtual void ProcReqLogin(SessionInfo sessionInfo, int roomID, Array<WCHAR, 20>& id, Array<WCHAR, 20>& password) override;
-	virtual void ProcSignUp(SessionInfo sessionInfo, int roomID, Array<WCHAR, 20>& id, Array<WCHAR, 20>& password) override;
+	virtual void ProcReqLogin(SessionInfo sessionInfo, int roomID, WString& id, WString& password) override;
+	virtual void ProcSignUp(SessionInfo sessionInfo, int roomID, WString& id, WString& password) override;
 public:
 	std::string MakeLoginToken();
 	virtual void Run() override;

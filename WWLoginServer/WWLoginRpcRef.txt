@@ -1,0 +1,55 @@
+RPC 1
+{
+	//------------------------------------------------------------
+	// 로그인 서버로 클라이언트 로그인 요청
+	//
+	//	{
+	//		WORD	Type
+	//
+	//		WString	id			// null 포함
+	//		WString	password	// password hash값
+	//	}
+	//
+	//------------------------------------------------------------
+	ReqLogin(WString id, WString password):101
+
+	//------------------------------------------------------------
+	// 로그인 서버에서 클라이언트로 로그인 응답
+	//
+	//	{
+	//		WORD	Type
+	//		char    status              
+	//		INT64	accountNo
+	//		string	loginToken;			// 길이 64
+	//		WString	GameServerIP	// 접속대상 게임,채팅 서버 정보
+	//		USHORT	GameServerPort
+	//	}
+	//
+	//------------------------------------------------------------
+	ResLogin(char status, INT64 accountNo, std::string loginToken, WString gameServerIp, USHORT gameServerPort)
+	
+	//------------------------------------------------------------
+	// 가입하기
+	//
+	//	{
+	//		WORD	Type
+	//
+	//		WString	id			// null 포함
+	//		WString	password		// null 포함
+	//	}
+	//
+	//------------------------------------------------------------
+	SignUp(WString id, WString password)
+
+	//------------------------------------------------------------
+	// 로그인 서버 가입 응답
+	//
+	//	{
+	//		WORD	Type
+	//
+	//		char	status			
+	//	}
+	//
+	//------------------------------------------------------------
+	ResSignUp(char status)
+}

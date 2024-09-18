@@ -4,7 +4,7 @@
 #include "DBHelper/MYSQLHelper.h"
 #include "DBHelper/RedisHelper.h"
 #include "WWLoginEnum.h"
-void WWDBReadQueue::ProcReqLogin(SessionInfo sessionInfo, Array<WCHAR, 20>& id, Array<WCHAR, 20>& password)
+void WWDBReadQueue::ProcReqLogin(SessionInfo sessionInfo, WString& id, WString& password)
 {
 	//DB ÀÐ±â
 

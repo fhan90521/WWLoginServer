@@ -7,7 +7,7 @@
 #include "WWDBReadQueue.h"
 #include "WWDBWriteQueue.h"
 #include <format>
-const Array<WCHAR, 16>& WWLoginServer::GetGameServerIp()
+const WString& WWLoginServer::GetGameServerIp()
 {
 	return _gameServerIp;
 }
@@ -67,37 +67,16 @@ void WWLoginServer::OnRecv(SessionInfo sessionInfo,int roomID, CRecvBuffer& buf)
 	}
 }
 
-std::string WWLoginServer::MakeLoginToken()
-{
-	std::string loginToken(64,'7');
-	uint64_t randomValue=GetTickCount64();
-	size_t i = 0;
-	while (i < loginToken.size()) {
-		randomValue ^= _dis(_rnGenerator);
-		std::memcpy(&loginToken[i], &randomValue, sizeof(randomValue));
-		i += sizeof(randomValue);
-	}
-	char nonZeroByte = 0x01 | randomValue;
-	for (int i=0;i<loginToken.size()-1;i++)
-	{
-		if (loginToken[i] == '\0')
-		{
-			loginToken[i] = nonZeroByte;
-		}
-	}
-	return loginToken;
-}
-
 void WWLoginServer::Run()
 {
 	IOCPRun();
 }
 
-void WWLoginServer::ProcReqLogin(SessionInfo sessionInfo, int roomID, Array<WCHAR, 20>& id, Array<WCHAR, 20>& password)
+void WWLoginServer::ProcReqLogin(SessionInfo sessionInfo, int roomID, WString& id, WString& password)
 {
 	unsigned int index = (_dbReadQueuesIndex++) % _dbReadQueues.size();
 }
-void WWLoginServer::ProcSignUp(SessionInfo sessionInfo, int roomID, Array<WCHAR, 20>& id, Array<WCHAR, 20>& password)
+void WWLoginServer::ProcSignUp(SessionInfo sessionInfo, int roomID, WString& id, WString& password)
 {
 }
 
@@ -124,15 +103,12 @@ WWLoginServer::~WWLoginServer()
 
 WWLoginServer::WWLoginServer() : WWLoginServerProxy(this), IOCPServer("WWLoginServerSetting.json"),
 _accountDB("WWLoginServerSetting.json"),
-_loginTokenRedis("WWLoginServerSetting.json"),
-_rnGenerator(_rd())
+_loginTokenRedis("WWLoginServerSetting.json")
 {
 	Document serverSetValues = ParseJson("LoginServerSetting.json");
 	std::string gameServerIp = serverSetValues["GameServerIp"].GetString();
-	std::wstring wGameServerIp;
-	wGameServerIp.assign(gameServerIp.begin(), gameServerIp.end());
-	std::copy(wGameServerIp.begin(), wGameServerIp.end(), _gameServerIp.begin());
-
+	_gameServerIp.assign(gameServerIp.begin(), gameServerIp.end());
+	
 	_dbWorkThreadPool = new WorkThreadPool(_dbConcurrentWorkThreadCnt, _dbConcurrentWorkThreadCnt);
 	for (int i = 0; i < _dbConcurrentWorkThreadCnt-1; i++)
 	{
