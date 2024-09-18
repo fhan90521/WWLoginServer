@@ -67,15 +67,24 @@ void WWLoginServer::OnRecv(SessionInfo sessionInfo,int roomID, CRecvBuffer& buf)
 	}
 }
 
-Array<char, 64> WWLoginServer::MakeLoginToken()
+std::string WWLoginServer::MakeLoginToken()
 {
-	Array<char,64> loginToken;
+	std::string loginToken(64,'7');
 	uint64_t randomValue=GetTickCount64();
 	size_t i = 0;
 	while (i < loginToken.size()) {
 		randomValue ^= _dis(_rnGenerator);
 		std::memcpy(&loginToken[i], &randomValue, sizeof(randomValue));
 		i += sizeof(randomValue);
+	}
+
+	char nonZeroByte = (randomValue % 255) + 1;
+	for (int i=0;i<loginToken.size()-1;i++)
+	{
+		if (loginToken[i] == '\0')
+		{
+			loginToken[i] = nonZeroByte;
+		}
 	}
 	return loginToken;
 }

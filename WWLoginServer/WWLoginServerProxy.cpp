@@ -32,7 +32,7 @@ void WWLoginServerProxy::ReqLogin(const List<SessionInfo>& sessionInfoList, cons
 	}
 	pBuf->DecrementRefCnt();
 }
-void WWLoginServerProxy::ResLogin(SessionInfo sessionInfo, char status, INT64 accountNo, const Array<char,64>& loginToken, const Array<WCHAR,16>& gameServerIp, USHORT gameServerPort, bool bDisconnect)
+void WWLoginServerProxy::ResLogin(SessionInfo sessionInfo, char status, INT64 accountNo, const std::string& loginToken, const Array<WCHAR,16>& gameServerIp, USHORT gameServerPort, bool bDisconnect)
 {
 	CSendBuffer* pBuf = CSendBuffer::Alloc();
 	pBuf->IncrementRefCnt();
@@ -46,7 +46,7 @@ void WWLoginServerProxy::ResLogin(SessionInfo sessionInfo, char status, INT64 ac
 	_pServer->Unicast(sessionInfo, pBuf, bDisconnect);
 	pBuf->DecrementRefCnt();
 }
-void WWLoginServerProxy::ResLogin(const List<SessionInfo>& sessionInfoList, char status, INT64 accountNo, const Array<char,64>& loginToken, const Array<WCHAR,16>& gameServerIp, USHORT gameServerPort, bool bDisconnect)
+void WWLoginServerProxy::ResLogin(const List<SessionInfo>& sessionInfoList, char status, INT64 accountNo, const std::string& loginToken, const Array<WCHAR,16>& gameServerIp, USHORT gameServerPort, bool bDisconnect)
 {
 	CSendBuffer* pBuf = CSendBuffer::Alloc();
 	pBuf->IncrementRefCnt();

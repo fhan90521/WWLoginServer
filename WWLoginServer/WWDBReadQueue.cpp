@@ -11,7 +11,7 @@ void WWDBReadQueue::ProcReqLogin(SessionInfo sessionInfo, Array<WCHAR, 20>& id, 
 	//Token ÀúÀå
 	ULONG64 accountNo;
 	auto loginToken = _wwLoginServer->MakeLoginToken();
-	_loginTokenRedis.GetRedisConnection()->setex(std::to_string(accountNo), 30, loginToken.data(), [this, sessionInfo, accountNo, loginToken](cpp_redis::reply& reply) mutable
+	_loginTokenRedis.GetRedisConnection()->setex(std::to_string(accountNo), 30, loginToken, [this, sessionInfo, accountNo, loginToken](cpp_redis::reply& reply) mutable
 	{
 			if (reply.is_simple_string() == true)
 			{

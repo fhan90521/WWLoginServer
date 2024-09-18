@@ -10,7 +10,7 @@ public:
 	virtual void ProcReqLogin(SessionInfo sessionInfo, int roomID, Array<WCHAR,20>& id, Array<WCHAR,20>& password) {}
 
 	bool PacketProcResLogin(SessionInfo sessionInfo, int roomID, CRecvBuffer& buf);
-	virtual void ProcResLogin(SessionInfo sessionInfo, int roomID, char status, INT64 accountNo, Array<char,64>& loginToken, Array<WCHAR,16>& gameServerIp, USHORT gameServerPort) {}
+	virtual void ProcResLogin(SessionInfo sessionInfo, int roomID, char status, INT64 accountNo, std::string& loginToken, Array<WCHAR,16>& gameServerIp, USHORT gameServerPort) {}
 
 	bool PacketProcSignUp(SessionInfo sessionInfo, int roomID, CRecvBuffer& buf);
 	virtual void ProcSignUp(SessionInfo sessionInfo, int roomID, Array<WCHAR,20>& id, Array<WCHAR,20>& password) {}

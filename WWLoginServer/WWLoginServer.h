@@ -51,7 +51,7 @@ private:
 	virtual void ProcReqLogin(SessionInfo sessionInfo, int roomID, Array<WCHAR, 20>& id, Array<WCHAR, 20>& password) override;
 	virtual void ProcSignUp(SessionInfo sessionInfo, int roomID, Array<WCHAR, 20>& id, Array<WCHAR, 20>& password) override;
 public:
-	Array<char, 64> MakeLoginToken();
+	std::string MakeLoginToken();
 	virtual void Run() override;
 	void Monitor();
 	WWLoginServer();

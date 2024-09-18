@@ -21,7 +21,7 @@ bool WWLoginServerStub::PacketProcResLogin(SessionInfo sessionInfo, int roomID, 
 {
 	char status;
 	INT64 accountNo;
-	Array<char,64> loginToken;
+	std::string loginToken;
 	Array<WCHAR,16> gameServerIp;
 	USHORT gameServerPort;
 	try
