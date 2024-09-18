@@ -77,8 +77,7 @@ std::string WWLoginServer::MakeLoginToken()
 		std::memcpy(&loginToken[i], &randomValue, sizeof(randomValue));
 		i += sizeof(randomValue);
 	}
-
-	char nonZeroByte = (randomValue % 255) + 1;
+	char nonZeroByte = 0x01 | randomValue;
 	for (int i=0;i<loginToken.size()-1;i++)
 	{
 		if (loginToken[i] == '\0')
